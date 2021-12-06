@@ -6,12 +6,12 @@ import { BotCommand } from "typegram";
 export function getBotCommands(): BotCommand[] {
   const BotCommand: BotCommand[] = [
     {
-      command: "start",
-      description: "Set/Change your name",
+      command: "intervals",
+      description: "Check 🛡 foray intervals",
     },
     {
-      command: "account",
-      description: "Get account information of user",
+      command: "stats",
+      description: "Get foray stats",
     },
   ];
   return BotCommand;
