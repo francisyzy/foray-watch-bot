@@ -27,6 +27,7 @@ model User {
   forrayAtkMiss Int @default(0)
   atkXp         Int @default(0)
   atkGold       Int @default(0)
+  atkGoldLost   Int @default(0)
 
   forrayDefHit  Int @default(0)
   forrayDefMiss Int @default(0)
