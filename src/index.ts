@@ -8,6 +8,8 @@ import helper from "./commands/helper";
 
 import { toEscapeHTMLMsg } from "./utils/messageHandler";
 import catchAll from "./commands/catch-all";
+import record from "./commands/record";
+import interval from "./commands/intervals";
 
 //Production Settings
 if (process.env.NODE_ENV === "production") {
@@ -49,6 +51,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 helper();
+record();
+interval();
 
 //Catch all unknown messages/commands
 catchAll();
