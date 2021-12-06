@@ -39,27 +39,33 @@ model User {
 }
 
 model forrayDef {
-  time           DateTime @id
+  time           DateTime
   miss           Boolean
   gold           Int
   xp             Int
   user           User     @relation(fields: [userTelegramId], references: [telegramId])
   userTelegramId Int
+
+  @@id([time, userTelegramId])
 }
 
 model forrayAtk {
-  time           DateTime @id
+  time           DateTime
   miss           Boolean
   gold           Int
   xp             Int
   user           User     @relation(fields: [userTelegramId], references: [telegramId])
   userTelegramId Int
+
+  @@id([time, userTelegramId])
 }
 
 model trader {
-  time           DateTime @id
+  time           DateTime
   gold           Int
   xp             Int
   user           User     @relation(fields: [userTelegramId], references: [telegramId])
   userTelegramId Int
+
+  @@id([time, userTelegramId])
 }
