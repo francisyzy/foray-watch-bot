@@ -5,7 +5,6 @@ import config from "./config";
 
 import bot from "./lib/bot";
 import helper from "./commands/helper";
-import echo from "./commands/echo";
 
 import { toEscapeHTMLMsg } from "./utils/messageHandler";
 import catchAll from "./commands/catch-all";
@@ -50,7 +49,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 helper();
-echo();
 
 //Catch all unknown messages/commands
 catchAll();
