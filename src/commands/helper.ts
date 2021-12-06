@@ -24,7 +24,7 @@ const helper = () => {
     );
   });
 
-  bot.command("account", async (ctx) => {
+  bot.command("stats", async (ctx) => {
     const user = await prisma.user.upsert({
       where: { telegramId: ctx.from.id },
       update: {
@@ -37,9 +37,24 @@ const helper = () => {
     });
 
     return ctx.replyWithHTML(
-      `<b>Name</b>: ${toEscapeHTMLMsg(
-        user.name,
-      )} \n<b>Timezone.</b>: ${user.timeZone}`,
+      `<b>Name</b>: ${toEscapeHTMLMsg(user.name)}
+<b>Total foray went.</b>: ${user.forrayAtkHit + user.forrayAtkMiss}
+<b>Total foray success.</b>: ${user.forrayAtkHit}
+<b>Total foray failure.</b>: ${user.forrayAtkMiss}
+<b>Total foray exp.</b>: ${user.atkXp}
+<b>Total foray gold.</b>: ${user.atkGold}
+<b>Total foray gold lost.</b>: ${user.atkGoldLost}
+
+<b>Total def foray.</b>: ${user.forrayDefHit + user.forrayDefMiss}
+<b>Total def foray blocked.</b>: ${user.forrayDefHit}
+<b>Total def foray missed.</b>: ${user.forrayDefMiss}
+<b>Total def foray gold.</b>: ${user.defGold}
+<b>Total def foray xp.</b>: ${user.defXp}
+
+<b>Total trader.</b>: ${user.traderHit}
+<b>Total trader xp.</b>: ${user.traderXp}
+<b>Total trader gold.</b>: ${user.traderGold}
+<b>Total trader rate.</b>: ${user.traderHit / user.forrayDefHit}`,
     );
   });
 
