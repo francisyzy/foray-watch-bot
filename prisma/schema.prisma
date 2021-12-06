@@ -11,9 +11,39 @@ generator client {
 }
 
 model User {
-  telegramId   Int      @id
-  phone_number String?
-  name         String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now()) @updatedAt
+  //User information
+  telegramId Int      @id
+  name       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+  timeZone   Int      @default(8)
+
+  forray forray[]
+  trader trader[]
+
+  //Stats as we will be clearing older forrai data
+  forrayHit  Int @default(0)
+  forrayMiss Int @default(0)
+  traderHit  Int @default(0)
+  traderXp   Int @default(0)
+  traderGold Int @default(0)
+  xp         Int @default(0)
+  gold       Int @default(0)
+}
+
+model forray {
+  time           DateTime @id
+  miss           Boolean
+  gold           Int
+  xp             Int
+  user           User     @relation(fields: [userTelegramId], references: [telegramId])
+  userTelegramId Int
+}
+
+model trader {
+  time           DateTime @id
+  traderGold     Int
+  traderXp       Int
+  user           User     @relation(fields: [userTelegramId], references: [telegramId])
+  userTelegramId Int
 }
