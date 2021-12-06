@@ -1,7 +1,7 @@
 {
-  "name": "telegraf-postgresql-template",
-  "version": "0.1.1",
-  "description": "Template for creating future telegram bot apps",
+  "name": "forrai-spai",
+  "version": "0.1.0",
+  "description": "Forrai Spai Proof of Concept",
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
@@ -14,13 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/francisyzy/telegraf-PostgreSQL-template.git"
+    "url": "git+https://github.com/francisyzy/forrai-spai.git"
   },
   "author": "francisyzy",
   "bugs": {
-    "url": "https://github.com/francisyzy/telegraf-PostgreSQL-template/issues"
+    "url": "https://github.com/francisyzy/forrai-spai/issues"
   },
-  "homepage": "https://github.com/francisyzy/telegraf-PostgreSQL-template#readme",
+  "homepage": "https://github.com/francisyzy/forrai-spai#readme",
   "engines": {
     "node": "15.x"
   },
