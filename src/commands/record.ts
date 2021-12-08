@@ -15,6 +15,7 @@ const record = () => {
 
       if (
         forwardText.includes("You successfully defeated") ||
+        forwardText.includes("Your body hurts, but for some") ||
         forwardText.includes("We hope you feel terrible.")
       ) {
         const lastForray = await prisma.forrayDef.findFirst({
@@ -66,6 +67,39 @@ const record = () => {
                   forrayDefHit: { increment: 1 },
                   defGold: { increment: numbers[0] },
                   defXp: { increment: numbers[1] },
+                },
+              });
+              ctx.reply("🛡 Foray Recorded");
+            })
+            .catch((error) => {
+              if (
+                error instanceof Prisma.PrismaClientKnownRequestError
+              ) {
+                if (error.code === "P2002") {
+                  ctx.reply("You have already recorded this 🛡 foray");
+                }
+              }
+            });
+        } else if (forwardText.includes("Your body hurts, but for")) {
+          const numbers = extractNumbers(forwardText.split("\n")[1]);
+          await prisma.forrayDef
+            .create({
+              data: {
+                time: forrayDate,
+                miss: false,
+                gold: 0,
+                xp: numbers[0],
+                userTelegramId: ctx.from.id,
+              },
+            })
+            .then(async () => {
+              await prisma.user.update({
+                where: {
+                  telegramId: ctx.from.id,
+                },
+                data: {
+                  forrayDefHit: { increment: 1 },
+                  defXp: { increment: numbers[0] },
                 },
               });
               ctx.reply("🛡 Foray Recorded");

@@ -19,6 +19,10 @@ const interval = () => {
       take: 3,
     });
 
+    if (defList.length === 0) {
+      return ctx.reply("No intervals available. Forward some 🛡 Foray first");
+    }
+
     let returnString = "";
     if (defList[0]) {
       returnString += "Time passed since last foray:\n";
@@ -68,7 +72,7 @@ const interval = () => {
       }
     }
 
-    ctx.reply(returnString);
+    return ctx.reply(returnString);
   });
 };
 

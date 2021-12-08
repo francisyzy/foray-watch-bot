@@ -61,7 +61,11 @@ const helper = () => {
     );
   });
 
-  bot.help((ctx) => ctx.reply("Help message"));
+  bot.help((ctx) =>
+    ctx.replyWithHTML(
+      `Hi! To use this bot, simply forward your 🧹Intervene or <a href="https://chatwars-wiki.de/index.php?title=Foray">foray</a> result or Trader Gold Message and the bot will track it!\n\n/intervals - to see your 🛡 intervals\n/stats - to see your overall stats`,
+    ),
+  );
 };
 
 export default helper;
