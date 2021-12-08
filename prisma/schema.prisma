@@ -22,7 +22,7 @@ model User {
   forrayAtk forrayAtk[]
   trader    trader[]
 
-  //Stats as we will be clearing older forrai data
+  //Stats as we will be clearing older foray data
   forrayAtkHit  Int @default(0)
   forrayAtkMiss Int @default(0)
   atkXp         Int @default(0)

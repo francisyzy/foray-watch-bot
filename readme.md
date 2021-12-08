@@ -1,4 +1,4 @@
-# Forrai Spai Bot
+# Foray watch Bot
 
 This the proof of concept then will rewrite in lambda format so that I can throw it away and not worry abt my PC crashing.
 

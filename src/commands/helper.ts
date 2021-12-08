@@ -20,7 +20,7 @@ const helper = () => {
       },
     });
     return ctx.reply(
-      "Welcome to forrai spai bot. Forward your foray & trader records here!",
+      "Welcome to foray watch bot. Forward your @chtwrsbot foray & trader records here!",
     );
   });
 
