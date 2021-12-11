@@ -1,0 +1,36 @@
+name: Serverless Build and Deploy
+
+# Triggers
+on:
+  push:
+    branches:
+      - master
+
+# Jobs
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    env:
+      ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
+      SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      API_TOKEN: ${{ secrets.API_TOKEN }}
+
+    # Steps
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: npm install dependencies
+        run: npm install
+
+      - name: npm build
+        run: npm run build
+
+      - name: npm remove dependencies
+        run: npm run removeDep
+
+      - name: Serverless
+        uses: serverless/github-action@v1.53.0
+        with:
+          args: deploy
