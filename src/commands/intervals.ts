@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 //interval commands
 const interval = () => {
   bot.command("intervals", async (ctx) => {
-    const defList = await prisma.forrayDef.findMany({
+    const defList = await prisma.forayDef.findMany({
       where: { userTelegramId: ctx.from.id },
       orderBy: {
         time: "desc",

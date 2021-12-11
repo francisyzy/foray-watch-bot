@@ -11,52 +11,49 @@ import catchAll from "./commands/catch-all";
 import record from "./commands/record";
 import interval from "./commands/intervals";
 
-//Production Settings
-if (process.env.NODE_ENV === "production") {
-  //Production Logging
-  bot.use((ctx, next) => {
-    if (ctx.message && config.LOG_GROUP_ID) {
-      let userInfo: string;
-      if (ctx.message.from.username) {
-        userInfo = `name: <a href="tg://user?id=${
-          ctx.message.from.id
-        }">${toEscapeHTMLMsg(ctx.message.from.first_name)}</a> (@${
-          ctx.message.from.username
-        })`;
-      } else {
-        userInfo = `name: <a href="tg://user?id=${
-          ctx.message.from.id
-        }">${toEscapeHTMLMsg(ctx.message.from.first_name)}</a>`;
+const index = () => {
+  //Production Settings
+  if (process.env.NODE_ENV === "production") {
+    //Production Logging
+    bot.use((ctx, next) => {
+      if (ctx.message && config.LOG_GROUP_ID) {
+        let userInfo: string;
+        if (ctx.message.from.username) {
+          userInfo = `name: <a href="tg://user?id=${
+            ctx.message.from.id
+          }">${toEscapeHTMLMsg(ctx.message.from.first_name)}</a> (@${
+            ctx.message.from.username
+          })`;
+        } else {
+          userInfo = `name: <a href="tg://user?id=${
+            ctx.message.from.id
+          }">${toEscapeHTMLMsg(ctx.message.from.first_name)}</a>`;
+        }
+        const text = `\ntext: ${
+          (ctx.message as Message.TextMessage).text
+        }`;
+        const logMessage = userInfo + toEscapeHTMLMsg(text);
+        bot.telegram.sendMessage(config.LOG_GROUP_ID, logMessage, {
+          parse_mode: "HTML",
+        });
       }
-      const text = `\ntext: ${
-        (ctx.message as Message.TextMessage).text
-      }`;
-      const logMessage = userInfo + toEscapeHTMLMsg(text);
-      bot.telegram.sendMessage(config.LOG_GROUP_ID, logMessage, {
-        parse_mode: "HTML",
-      });
-    }
-    return next();
-  });
-  bot.launch({
-    webhook: {
-      domain: config.URL,
-      port: Number(config.PORT),
-    },
-  });
-} else {
-  //Development logging
-  bot.use(Telegraf.log());
-  bot.launch();
+      return next();
+    });
+  } else {
+    //Development logging
+    bot.use(Telegraf.log());
+    bot.launch();
+  }
+
+  helper();
+  record();
+  interval();
+
+  //Catch all unknown messages/commands
+  catchAll();
+};
+
+if (process.env.NODE_ENV !== "production") {
+  index();
 }
-
-helper();
-record();
-interval();
-
-//Catch all unknown messages/commands
-catchAll();
-
-// Enable graceful stop
-process.once("SIGINT", () => bot.stop("SIGINT"));
-process.once("SIGTERM", () => bot.stop("SIGTERM"));
+export default index;

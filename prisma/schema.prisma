@@ -2,14 +2,16 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 generator client {
   provider        = "prisma-client-js"
   binaryTargets   = ["native", "rhel-openssl-1.0.x"]
-  previewFeatures = ["dataProxy"]
+  previewFeatures = ["dataProxy", "referentialIntegrity"]
 }
 
 model User {
@@ -20,28 +22,28 @@ model User {
   updatedAt  DateTime @default(now()) @updatedAt
   timeZone   Int      @default(8)
 
-  forrayDef forrayDef[]
-  forrayAtk forrayAtk[]
-  trader    trader[]
+  forayDef forayDef[]
+  forayAtk forayAtk[]
+  trader   trader[]
 
   //Stats as we will be clearing older foray data
-  forrayAtkHit  Int @default(0)
-  forrayAtkMiss Int @default(0)
-  atkXp         Int @default(0)
-  atkGold       Int @default(0)
-  atkGoldLost   Int @default(0)
+  forayAtkHit  Int @default(0)
+  forayAtkMiss Int @default(0)
+  atkXp        Int @default(0)
+  atkGold      Int @default(0)
+  atkGoldLost  Int @default(0)
 
-  forrayDefHit  Int @default(0)
-  forrayDefMiss Int @default(0)
-  defXp         Int @default(0)
-  defGold       Int @default(0)
+  forayDefHit  Int @default(0)
+  forayDefMiss Int @default(0)
+  defXp        Int @default(0)
+  defGold      Int @default(0)
 
   traderHit  Int @default(0)
   traderXp   Int @default(0)
   traderGold Int @default(0)
 }
 
-model forrayDef {
+model forayDef {
   time           DateTime
   miss           Boolean
   gold           Int
@@ -52,7 +54,7 @@ model forrayDef {
   @@id([time, userTelegramId])
 }
 
-model forrayAtk {
+model forayAtk {
   time           DateTime
   miss           Boolean
   gold           Int

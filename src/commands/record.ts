@@ -2,7 +2,7 @@ import bot from "../lib/bot";
 import { PrismaClient, Prisma } from "@prisma/client";
 import { Message } from "typegram";
 import { extractNumbers } from "../utils/extractNumbers";
-import { sameForray } from "../utils/dateCompare";
+import { sameforay } from "../utils/dateCompare";
 import { formatDistanceStrict } from "date-fns";
 
 const prisma = new PrismaClient();
@@ -11,14 +11,14 @@ const record = () => {
   bot.on("forward_date", async (ctx) => {
     if (ctx.message.forward_from!.username! == "chtwrsbot") {
       const forwardText = (ctx.message as Message.TextMessage).text;
-      const forrayDate = new Date(ctx.message.forward_date! * 1000);
+      const forayDate = new Date(ctx.message.forward_date! * 1000);
 
       if (
         forwardText.includes("You successfully defeated") ||
         forwardText.includes("Your body hurts, but for some") ||
         forwardText.includes("We hope you feel terrible.")
       ) {
-        const lastForray = await prisma.forrayDef.findFirst({
+        const lastforay = await prisma.forayDef.findFirst({
           where: {
             userTelegramId: ctx.from.id,
           },
@@ -27,16 +27,16 @@ const record = () => {
           },
         });
 
-        if (lastForray) {
-          if (!sameForray(lastForray.time, forrayDate)) {
+        if (lastforay) {
+          if (!sameforay(lastforay.time, forayDate)) {
             const differenceHrs = formatDistanceStrict(
-              lastForray.time,
-              forrayDate,
+              lastforay.time,
+              forayDate,
               { unit: "hour" },
             );
             const differenceMins =
               extractNumbers(
-                formatDistanceStrict(lastForray.time, forrayDate, {
+                formatDistanceStrict(lastforay.time, forayDate, {
                   unit: "minute",
                 }),
               )[0] % 60;
@@ -48,10 +48,10 @@ const record = () => {
 
         if (forwardText.includes("You successfully defeated")) {
           const numbers = extractNumbers(forwardText.split("\n")[1]);
-          await prisma.forrayDef
+          await prisma.forayDef
             .create({
               data: {
-                time: forrayDate,
+                time: forayDate,
                 miss: false,
                 gold: numbers[0],
                 xp: numbers[1],
@@ -64,7 +64,7 @@ const record = () => {
                   telegramId: ctx.from.id,
                 },
                 data: {
-                  forrayDefHit: { increment: 1 },
+                  forayDefHit: { increment: 1 },
                   defGold: { increment: numbers[0] },
                   defXp: { increment: numbers[1] },
                 },
@@ -82,10 +82,10 @@ const record = () => {
             });
         } else if (forwardText.includes("Your body hurts, but for")) {
           const numbers = extractNumbers(forwardText.split("\n")[1]);
-          await prisma.forrayDef
+          await prisma.forayDef
             .create({
               data: {
-                time: forrayDate,
+                time: forayDate,
                 miss: false,
                 gold: 0,
                 xp: numbers[0],
@@ -98,7 +98,7 @@ const record = () => {
                   telegramId: ctx.from.id,
                 },
                 data: {
-                  forrayDefHit: { increment: 1 },
+                  forayDefHit: { increment: 1 },
                   defXp: { increment: numbers[0] },
                 },
               });
@@ -114,10 +114,10 @@ const record = () => {
               }
             });
         } else {
-          await prisma.forrayDef
+          await prisma.forayDef
             .create({
               data: {
-                time: forrayDate,
+                time: forayDate,
                 miss: true,
                 gold: 0,
                 xp: 0,
@@ -130,7 +130,7 @@ const record = () => {
                   telegramId: ctx.from.id,
                 },
                 data: {
-                  forrayDefMiss: { increment: 1 },
+                  forayDefMiss: { increment: 1 },
                 },
               });
               ctx.reply("🛡 Foray Recorded");
@@ -150,10 +150,10 @@ const record = () => {
       ) {
         const numbers = extractNumbers(forwardText.split("\n")[1]);
 
-        await prisma.forrayAtk
+        await prisma.forayAtk
           .create({
             data: {
-              time: forrayDate,
+              time: forayDate,
               miss: false,
               gold: numbers[0],
               xp: numbers[1],
@@ -166,7 +166,7 @@ const record = () => {
                 telegramId: ctx.from.id,
               },
               data: {
-                forrayAtkHit: { increment: 1 },
+                forayAtkHit: { increment: 1 },
                 atkGold: { increment: numbers[0] },
                 atkXp: { increment: numbers[1] },
               },
@@ -188,10 +188,10 @@ const record = () => {
         )
       ) {
         const numbers = extractNumbers(forwardText.split("\n")[1]);
-        await prisma.forrayAtk
+        await prisma.forayAtk
           .create({
             data: {
-              time: forrayDate,
+              time: forayDate,
               miss: true,
               gold: numbers[0],
               xp: 0,
@@ -204,7 +204,7 @@ const record = () => {
                 telegramId: ctx.from.id,
               },
               data: {
-                forrayAtkMiss: { increment: 1 },
+                forayAtkMiss: { increment: 1 },
                 atkGoldLost: { increment: numbers[0] },
               },
             });
@@ -225,10 +225,10 @@ const record = () => {
         )
       ) {
         const numbers = extractNumbers(forwardText.split("\n")[1]);
-        await prisma.forrayAtk
+        await prisma.forayAtk
           .create({
             data: {
-              time: forrayDate,
+              time: forayDate,
               miss: true,
               gold: 0,
               xp: numbers[0],
@@ -241,7 +241,7 @@ const record = () => {
                 telegramId: ctx.from.id,
               },
               data: {
-                forrayAtkMiss: { increment: 1 },
+                forayAtkMiss: { increment: 1 },
                 atkXp: { increment: numbers[0] },
               },
             });
@@ -265,7 +265,7 @@ const record = () => {
         await prisma.trader
           .create({
             data: {
-              time: forrayDate,
+              time: forayDate,
               gold: numbers[1],
               xp: numbers[0],
               userTelegramId: ctx.from.id,

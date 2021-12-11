@@ -24,6 +24,13 @@ const helper = () => {
     );
   });
 
+  bot.command("reset", async (ctx) => {
+    await prisma.forayDef.deleteMany();
+    await prisma.forayAtk.deleteMany();
+    await prisma.trader.deleteMany();
+    await prisma.user.deleteMany();
+  });
+
   bot.command("stats", async (ctx) => {
     const user = await prisma.user.upsert({
       where: { telegramId: ctx.from.id },
@@ -38,26 +45,26 @@ const helper = () => {
 
     return ctx.replyWithHTML(
       `<b>Name</b>: ${toEscapeHTMLMsg(user.name)}
-<b>⚔️ Foray went.</b>: ${user.forrayAtkHit + user.forrayAtkMiss}
-<b>⚔️ Foray success.</b>: ${user.forrayAtkHit}
-<b>⚔️ Foray failure.</b>: ${user.forrayAtkMiss}
+<b>⚔️ Foray went.</b>: ${user.forayAtkHit + user.forayAtkMiss}
+<b>⚔️ Foray success.</b>: ${user.forayAtkHit}
+<b>⚔️ Foray failure.</b>: ${user.forayAtkMiss}
 <b>⚔️ Foray success %</b>: ${
-        user.forrayAtkHit / (user.forrayAtkHit + user.forrayAtkMiss)
+        user.forayAtkHit / (user.forayAtkHit + user.forayAtkMiss)
       }
 <b>⚔️ Foray exp.</b>: ${user.atkXp}
 <b>⚔️ Foray gold💰</b>: ${user.atkGold}
 <b>⚔️ Foray gold lost.</b>: ${user.atkGoldLost}
 
-<b>🛡 Foray.</b>: ${user.forrayDefHit + user.forrayDefMiss}
-<b>🛡 Foray blocked💦</b>: ${user.forrayDefHit}
-<b>🛡 Foray missed🔥</b>: ${user.forrayDefMiss}
+<b>🛡 Foray.</b>: ${user.forayDefHit + user.forayDefMiss}
+<b>🛡 Foray blocked💦</b>: ${user.forayDefHit}
+<b>🛡 Foray missed🔥</b>: ${user.forayDefMiss}
 <b>🛡 Foray gold💰</b>: ${user.defGold}
 <b>🛡 Foray xp.</b>: ${user.defXp}
 
 <b>Trader came.</b>: ${user.traderHit}
 <b>Trader xp.</b>: ${user.traderXp}
 <b>Trader gold💰</b>: ${user.traderGold}
-<b>Trader rate.</b>: ${user.traderHit / user.forrayDefHit}`,
+<b>Trader rate.</b>: ${user.traderHit / user.forayDefHit}`,
     );
   });
 
