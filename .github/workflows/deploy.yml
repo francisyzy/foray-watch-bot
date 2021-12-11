@@ -33,8 +33,8 @@ jobs:
       - name: npm build
         run: npm run build
 
-      # - name: npm prune
-      #   run: npm prune --production
+      - name: npm prune
+        run: npm prune --production
 
       - name: prune prisma
         run: npm run removePrismaExtras
