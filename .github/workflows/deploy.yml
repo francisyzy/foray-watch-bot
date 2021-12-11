@@ -41,7 +41,7 @@ jobs:
       - name: Serverless
         uses: serverless/github-action@master
         with:
-          args: -c "serverless plugin install --name serverless-plugin-reducer && serverless deploy--verbose"
+          args: -c "serverless plugin install --name serverless-plugin-reducer && serverless deploy --verbose"
           entrypoint: /bin/sh
         env:
           SLS_DEBUG: 1
