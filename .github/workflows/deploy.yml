@@ -39,7 +39,9 @@ jobs:
         run: npm run removePrismaExtras
 
       - name: Serverless
-        run: npm run serverlessDeploy
-        # uses: serverless/github-action@v1.53.0
-        # with:
-        #   args: -c "serverless plugin install --name serverless-plugin-reducer && serverless deploy"
+        uses: serverless/github-action@v1.53.0
+        with:
+          args: -c "serverless plugin install --name serverless-plugin-reducer && serverless deploy--verbose"
+          entrypoint: /bin/bash
+        env:
+          SLS_DEBUG: 1
