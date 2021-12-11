@@ -2,9 +2,9 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider          = "mysql"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
@@ -48,7 +48,7 @@ model forayDef {
   miss           Boolean
   gold           Int
   xp             Int
-  user           User     @relation(fields: [userTelegramId], references: [telegramId])
+  user           User     @relation(fields: [userTelegramId], references: [telegramId], onUpdate: NoAction)
   userTelegramId Int
 
   @@id([time, userTelegramId])
@@ -59,7 +59,7 @@ model forayAtk {
   miss           Boolean
   gold           Int
   xp             Int
-  user           User     @relation(fields: [userTelegramId], references: [telegramId])
+  user           User     @relation(fields: [userTelegramId], references: [telegramId], onUpdate: NoAction)
   userTelegramId Int
 
   @@id([time, userTelegramId])
@@ -69,7 +69,7 @@ model trader {
   time           DateTime
   gold           Int
   xp             Int
-  user           User     @relation(fields: [userTelegramId], references: [telegramId])
+  user           User     @relation(fields: [userTelegramId], references: [telegramId], onUpdate: NoAction)
   userTelegramId Int
 
   @@id([time, userTelegramId])
