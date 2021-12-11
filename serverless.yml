@@ -2,7 +2,8 @@ service: foray-watch-serverless
 
 useDotenv: true
 
-# plugins:
+plugins:
+  - serverless-plugin-reducer
 #   - serverless-offline
 
 provider:
