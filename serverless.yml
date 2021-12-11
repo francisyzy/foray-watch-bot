@@ -20,6 +20,7 @@ provider:
     DATABASE_URL: ${env:DATABASE_URL}
     LOG_GROUP_ID: ${env:LOG_GROUP_ID}
     NODE_ENV: production
+    PRISMA_CLIENT_ENGINE_TYPE: 'dataproxy'
 
 functions:
   hello:

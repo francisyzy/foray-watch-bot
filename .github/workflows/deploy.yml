@@ -21,7 +21,6 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       API_TOKEN: ${{ secrets.API_TOKEN }}
-      NODE_ENV: 'production'
 
     # Steps
     steps:
@@ -45,5 +44,4 @@ jobs:
           args: -c "serverless plugin install --name serverless-plugin-reducer && serverless deploy --verbose"
           entrypoint: /bin/sh
         env:
-          PRISMA_CLIENT_ENGINE_TYPE: 'dataproxy'
           SLS_DEBUG: 1
