@@ -8,6 +8,7 @@
     "removePrismaExtras": "rm -rf node_modules/.prisma/client/libquery_engine-debian-openssl-1.1.x.so.node && rm -rf node_modules/@prisma/engines",
     "build": "npm run generateProxy && tsc -p .",
     "generateProxy": "PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate",
+    "serverlessDeploy": "serverless deploy",
     "dev": "nodemon src/index.ts",
     "generate": "prisma generate",
     "deploy": "prisma migrate deploy",
