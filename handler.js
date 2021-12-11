@@ -40,6 +40,7 @@ module.exports.hello = async (event) => {
 
 module.exports.setWebhook = async (event) => {
   try {
+    console.log(process.env.DATABASE_URL);
     let url =
       "https://" +
       event.headers.Host +
