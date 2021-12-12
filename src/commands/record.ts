@@ -69,7 +69,7 @@ const record = () => {
                   defXp: { increment: numbers[1] },
                 },
               });
-              ctx.reply("🛡 Foray Recorded");
+              ctx.reply("🧹🛡 Foray Recorded");
             })
             .catch((error) => {
               if (
@@ -102,7 +102,7 @@ const record = () => {
                   defXp: { increment: numbers[0] },
                 },
               });
-              ctx.reply("🛡 Foray Recorded");
+              ctx.reply("🧹🛡 Foray Recorded");
             })
             .catch((error) => {
               if (
@@ -171,14 +171,14 @@ const record = () => {
                 atkXp: { increment: numbers[1] },
               },
             });
-            ctx.reply("⚔️ Foray Recorded");
+            ctx.reply("🗡️ Foray Recorded");
           })
           .catch((error) => {
             if (
               error instanceof Prisma.PrismaClientKnownRequestError
             ) {
               if (error.code === "P2002") {
-                ctx.reply("You have already recorded this ⚔️ foray");
+                ctx.reply("You have already recorded this 🗡️ foray");
               }
             }
           });
@@ -208,14 +208,14 @@ const record = () => {
                 atkGoldLost: { increment: numbers[0] },
               },
             });
-            ctx.reply("⚔️ Foray Recorded");
+            ctx.reply("🗡️ Foray Recorded");
           })
           .catch((error) => {
             if (
               error instanceof Prisma.PrismaClientKnownRequestError
             ) {
               if (error.code === "P2002") {
-                ctx.reply("You have already recorded this ⚔️ foray");
+                ctx.reply("You have already recorded this 🗡️ foray");
               }
             }
           });
@@ -245,14 +245,14 @@ const record = () => {
                 atkXp: { increment: numbers[0] },
               },
             });
-            ctx.reply("⚔️ Foray Recorded");
+            ctx.reply("🗡️ Foray Recorded");
           })
           .catch((error) => {
             if (
               error instanceof Prisma.PrismaClientKnownRequestError
             ) {
               if (error.code === "P2002") {
-                ctx.reply("You have already recorded this ⚔️ foray");
+                ctx.reply("You have already recorded this 🗡️ foray");
               }
             }
           });

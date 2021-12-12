@@ -19,16 +19,13 @@ const helper = () => {
         name: ctx.from.first_name,
       },
     });
-    return ctx.reply(
-      "Welcome to foray watch bot. Forward your @chtwrsbot foray & trader records here!",
+    return ctx.replyWithHTML(
+      "Welcome to foray watch bot. Forward your @chtwrsbot foray & trader records here!\n<i>/help</i> for more info",
     );
   });
 
-  bot.command("reset", async (ctx) => {
-    await prisma.forayDef.deleteMany();
-    await prisma.forayAtk.deleteMany();
-    await prisma.trader.deleteMany();
-    await prisma.user.deleteMany();
+  bot.command("ping", (ctx) => {
+    return ctx.reply("pongg");
   });
 
   bot.command("stats", async (ctx) => {
@@ -45,18 +42,18 @@ const helper = () => {
 
     return ctx.replyWithHTML(
       `<b>Name</b>: ${toEscapeHTMLMsg(user.name)}
-<b>⚔️ Foray went.</b>: ${user.forayAtkHit + user.forayAtkMiss}
-<b>⚔️ Foray success.</b>: ${user.forayAtkHit}
-<b>⚔️ Foray failure.</b>: ${user.forayAtkMiss}
-<b>⚔️ Foray success %</b>: ${
+<b>🗡️ Foray went.</b>: ${user.forayAtkHit + user.forayAtkMiss}
+<b>🗡️ Foray success.</b>: ${user.forayAtkHit}
+<b>🗡️ Foray failure.</b>: ${user.forayAtkMiss}
+<b>🗡️ Foray success %</b>: ${
         user.forayAtkHit / (user.forayAtkHit + user.forayAtkMiss)
       }
-<b>⚔️ Foray exp.</b>: ${user.atkXp}
-<b>⚔️ Foray gold💰</b>: ${user.atkGold}
-<b>⚔️ Foray gold lost.</b>: ${user.atkGoldLost}
+<b>🗡️ Foray exp.</b>: ${user.atkXp}
+<b>🗡️ Foray gold💰</b>: ${user.atkGold}
+<b>🗡️ Foray gold lost.</b>: ${user.atkGoldLost}
 
 <b>🛡 Foray.</b>: ${user.forayDefHit + user.forayDefMiss}
-<b>🛡 Foray blocked💦</b>: ${user.forayDefHit}
+<b>🛡 Foray blocked🧹</b>: ${user.forayDefHit}
 <b>🛡 Foray missed🔥</b>: ${user.forayDefMiss}
 <b>🛡 Foray gold💰</b>: ${user.defGold}
 <b>🛡 Foray xp.</b>: ${user.defXp}
@@ -70,7 +67,7 @@ const helper = () => {
 
   bot.help((ctx) =>
     ctx.replyWithHTML(
-      `Hi! To use this bot, simply forward your 🧹Intervene or <a href="https://chatwars-wiki.de/index.php?title=Foray">foray</a> result or Trader Gold Message and the bot will track it!\n\n/intervals - to see your 🛡 intervals\n/stats - to see your overall stats`,
+      `Hi! To use this bot, simply forward your 🧹Intervene or <a href="https://chatwars-wiki.de/index.php?title=Foray">foray</a> result or <a href="https://chatwars-wiki.de/index.php?title=Game_updates/2019-03-19">Trader</a> Gold Message and the bot will track it!\n\n/intervals - to see your 🛡 intervals\n/stats - to see your overall stats\n<i>For bug reports, please create an issue at <a href="https://github.com/francisyzy/foray-watch-bot/issues">Github</a></i>`,
     ),
   );
 };

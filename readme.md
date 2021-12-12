@@ -1,3 +1,4 @@
 # Foray watch Bot
 
-Lamda proof of concept worked need to write deployment
+This telegram bot records foray stats and timings so that you will have an estimation of what time the next foray will come.
+
