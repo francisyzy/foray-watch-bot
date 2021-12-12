@@ -21,6 +21,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       API_TOKEN: ${{ secrets.API_TOKEN }}
+      PRISMA_CLIENT_ENGINE_TYPE: 'dataproxy'
 
     # Steps
     steps:
