@@ -133,7 +133,7 @@ const record = () => {
                   forayDefMiss: { increment: 1 },
                 },
               });
-              ctx.reply("🛡 Foray Recorded");
+              ctx.reply("🔥🛡 Foray Recorded");
             })
             .catch((error) => {
               if (
@@ -293,6 +293,10 @@ const record = () => {
               }
             }
           });
+      } else {
+        return ctx.replyWithHTML(
+          `Unrecognised foray message\n\n<i>For bug reports, please create an issue at <a href="https://github.com/francisyzy/foray-watch-bot/issues">Github</a></i>`,
+        );
       }
     }
   });

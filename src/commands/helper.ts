@@ -46,7 +46,11 @@ const helper = () => {
 <b>🗡️ Foray success.</b>: ${user.forayAtkHit}
 <b>🗡️ Foray failure.</b>: ${user.forayAtkMiss}
 <b>🗡️ Foray success %</b>: ${
-        user.forayAtkHit / (user.forayAtkHit + user.forayAtkMiss)
+        (
+          (user.forayAtkHit /
+            (user.forayAtkHit + user.forayAtkMiss)) *
+          100
+        ).toFixed(2) + "%"
       }
 <b>🗡️ Foray exp.</b>: ${user.atkXp}
 <b>🗡️ Foray gold💰</b>: ${user.atkGold}
@@ -61,7 +65,9 @@ const helper = () => {
 <b>Trader came.</b>: ${user.traderHit}
 <b>Trader xp.</b>: ${user.traderXp}
 <b>Trader gold💰</b>: ${user.traderGold}
-<b>Trader rate.</b>: ${user.traderHit / user.forayDefHit}`,
+<b>Trader rate.</b>: ${
+        ((user.traderHit / user.forayDefHit) * 100).toFixed(2) + "%"
+      }`,
     );
   });
 
