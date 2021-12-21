@@ -19,6 +19,7 @@ provider:
     API_TOKEN: ${env:API_TOKEN}
     DATABASE_URL: ${env:DATABASE_URL}
     LOG_GROUP_ID: ${env:LOG_GROUP_ID}
+    ADMIN_TELEGRAM_ID: ${env:ADMIN_TELEGRAM_ID}
     NODE_ENV: production
 
 functions:
@@ -36,7 +37,6 @@ functions:
           path: setWebhook
           method: post
           cors: true
-
 # package:
 #   patterns:
 #     - '!node_modules/.prisma/client/libquery_engine-*'

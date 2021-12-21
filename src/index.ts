@@ -10,6 +10,7 @@ import { toEscapeHTMLMsg } from "./utils/messageHandler";
 import catchAll from "./commands/catch-all";
 import record from "./commands/record";
 import interval from "./commands/intervals";
+import admin from "./commands/admin";
 
 const index = () => {
   //Production Settings
@@ -48,6 +49,7 @@ const index = () => {
   helper();
   record();
   interval();
+  admin();
 
   //Catch all unknown messages/commands
   catchAll();
