@@ -59,6 +59,13 @@ const helper = () => {
 <b>🛡 Foray.</b>: ${user.forayDefHit + user.forayDefMiss}
 <b>🛡 Foray blocked🧹</b>: ${user.forayDefHit}
 <b>🛡 Foray missed🔥</b>: ${user.forayDefMiss}
+<b>🛡 Foray success%</b>:${
+        (
+          (user.forayDefHit /
+            (user.forayDefHit + user.forayDefMiss)) *
+          100
+        ).toFixed(2) + "%"
+      }
 <b>🛡 Foray gold💰</b>: ${user.defGold}
 <b>🛡 Foray xp.</b>: ${user.defXp}
 
