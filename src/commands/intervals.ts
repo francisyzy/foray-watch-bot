@@ -6,6 +6,7 @@ import {
   formatISO9075,
 } from "date-fns";
 import { extractNumbers } from "../utils/extractNumbers";
+import { utcToZonedTime } from "date-fns-tz";
 
 const prisma = new PrismaClient();
 //interval commands
@@ -17,10 +18,13 @@ const interval = () => {
         time: "desc",
       },
       take: 3,
+      include: { user: { select: { timeZone: true } } },
     });
 
     if (defList.length === 0) {
-      return ctx.reply("No intervals available. Forward some 🛡 Foray first");
+      return ctx.reply(
+        "No intervals available. Forward some 🛡 Foray first",
+      );
     }
 
     let returnString = "";
@@ -61,7 +65,15 @@ const interval = () => {
       }
 
       if (i !== defList.length - 1) {
-        returnString += formatISO9075(def.time);
+        returnString += formatISO9075(
+          utcToZonedTime(
+            def.time,
+            //If < 0 means timezone is negative, else postive timezone
+            `${def.user.timeZone < 0 ? "-" : "+"}${def.user.timeZone
+              .toString()
+              .padStart(2, "0")}:00`,
+          ),
+        );
         if (def.miss) {
           returnString += "🔥\n";
         } else {
