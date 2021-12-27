@@ -43,5 +43,6 @@ export function toEscapeHTMLMsg(str: string): string {
  * @return {string} Escaped strings
  */
 export function formatTimezone(tz: number): string {
-  return `${tz < 0 ? "" : "+"}${tz.toString().padStart(2, "0")}:00`;
+  const tzString = tz < 0 ? (tz * -1).toString() : tz.toString();
+  return `${tz < 0 ? "-" : "+"}${tzString.padStart(2, "0")}:00`;
 }
