@@ -295,7 +295,7 @@ const record = () => {
           });
       } else {
         return ctx.replyWithHTML(
-          `Unrecognised foray message\n\n<i>For bug reports, please create an issue at <a href="https://github.com/francisyzy/foray-watch-bot/issues">Github</a></i>`,
+          `Unrecognised foray message\n\n<i>For bug reports, please create an issue at <a href="http://go.francisyzy.com/foray-watch-bot-issues">Github</a></i>`,
         );
       }
     }
