@@ -7,6 +7,7 @@ import {
 } from "date-fns";
 import { extractNumbers } from "../utils/extractNumbers";
 import { utcToZonedTime } from "date-fns-tz";
+import { formatTimezone } from "../utils/messageHandler";
 
 const prisma = new PrismaClient();
 //interval commands
@@ -48,6 +49,9 @@ const interval = () => {
 
     let dateCompare = new Date();
 
+    //If < 0 means timezone is negative, else postive timezone
+    const userTZ = formatTimezone(defList[0].user.timeZone);
+
     for (let i = 0; i < defList.length; i++) {
       const def = defList[i];
       if (i !== 0) {
@@ -66,13 +70,7 @@ const interval = () => {
 
       if (i !== defList.length - 1) {
         returnString += formatISO9075(
-          utcToZonedTime(
-            def.time,
-            //If < 0 means timezone is negative, else postive timezone
-            `${def.user.timeZone < 0 ? "-" : "+"}${def.user.timeZone
-              .toString()
-              .padStart(2, "0")}:00`,
-          ),
+          utcToZonedTime(def.time, userTZ),
         );
         if (def.miss) {
           returnString += "🔥\n";
@@ -84,7 +82,9 @@ const interval = () => {
       }
     }
 
-    return ctx.reply(returnString);
+    returnString += `<i>Your selected timezone is ${userTZ} /settimezone to change it</i>`;
+
+    return ctx.replyWithHTML(returnString);
   });
 };
 

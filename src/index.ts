@@ -11,6 +11,7 @@ import catchAll from "./commands/catch-all";
 import record from "./commands/record";
 import interval from "./commands/intervals";
 import admin from "./commands/admin";
+import timezone from "./commands/timezone";
 
 const index = () => {
   //Production Settings
@@ -50,6 +51,7 @@ const index = () => {
   record();
   interval();
   admin();
+  timezone();
 
   //Catch all unknown messages/commands
   catchAll();

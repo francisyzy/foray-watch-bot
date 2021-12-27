@@ -13,6 +13,10 @@ export function getBotCommands(): BotCommand[] {
       command: "stats",
       description: "Get foray stats",
     },
+    {
+      command: "settimezone",
+      description: "Update timezone to display for /intervals",
+    },
   ];
   return BotCommand;
 }

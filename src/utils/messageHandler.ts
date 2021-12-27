@@ -36,3 +36,12 @@ export function toEscapeHTMLMsg(str: string): string {
       .replace("&", "&amp;")
   );
 }
+
+/**
+ * Format TimeZone to a nice readable string
+ * @param {number} tz - The string with characters to escape
+ * @return {string} Escaped strings
+ */
+export function formatTimezone(tz: number): string {
+  return `${tz < 0 ? "" : "+"}${tz.toString().padStart(2, "0")}:00`;
+}
