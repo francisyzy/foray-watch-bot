@@ -3,7 +3,9 @@
 This telegram bot records foray stats and timings so that you will have an estimation of what time the next foray will come.
 
 <div align="center">
+<a href="http://go.francisyzy.com/t-me-foray-watch-bot">
 <img src="https://user-images.githubusercontent.com/24467184/147848697-ada79104-e67c-4584-a98c-988ddb2939d7.png" alt="TelegramQR">
+</a>
 </div>
 
 <details>
