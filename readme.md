@@ -14,4 +14,20 @@ This telegram bot records foray stats and timings so that you will have an estim
 
 </details>
 
+<details>
+<summary>Actions secrets</summary>
+<p>
+If you fork this project and want to deploy the project to AWS Lambda, you'll need the following to be set in Github Actions secrets
+
+```
+ADMIN_TELEGRAM_ID: For the owner of the bot to check stats
+API_TOKEN: telegram API Key (Generate from botfather https://t.me/botfather)
+AWS_ACCESS_KEY_ID: serverless requires this to deploy
+AWS_SECRET_ACCESS_KEY: serverless requires this to deploy
+DATABASE_URL: https://www.prisma.io/dataplatform connection string
+```
+
+</p>
+</details>
+
 Writeup on [Medium](http://go.francisyzy.com/foray-watch-bot-medium)
