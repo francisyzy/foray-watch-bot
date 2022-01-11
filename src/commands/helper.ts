@@ -80,7 +80,7 @@ const helper = () => {
 
   bot.help((ctx) =>
     ctx.replyWithHTML(
-      `Hi! To use this bot, simply forward your 🧹Intervene or <a href="https://chatwars-wiki.de/index.php?title=Foray">foray</a> result or <a href="https://chatwars-wiki.de/index.php?title=Game_updates/2019-03-19">Trader</a> Gold Message and the bot will track it!\n\n/intervals - to see your 🛡 intervals\n/stats - to see your overall stats\n<i>For bug reports, please create an issue at <a href="http://go.francisyzy.com/foray-watch-bot-issues">Github</a></i>`,
+      `Hi! To use this bot, simply forward your 🧹Intervene or <a href="https://chatwars-wiki.de/index.php?title=Foray">foray</a> result or <a href="https://chatwars-wiki.de/index.php?title=Game_updates/2019-03-19">Trader</a> Gold Message and the bot will track it!\n\n/intervals - to see your 🛡 intervals\n/intervals_10 to see your latest 10 🛡 intervals\n/stats - to see your overall stats\n<i>For bug reports, please create an issue at <a href="http://go.francisyzy.com/foray-watch-bot-issues">Github</a></i>`,
     ),
   );
 };

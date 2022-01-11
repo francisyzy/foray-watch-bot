@@ -67,20 +67,18 @@ async function intervalFunction(
   //If < 0 means timezone is negative, else postive timezone
   const userTZ = formatTimezone(defList[0].user.timeZone);
 
+  let averageIntervals: number[] = [];
+
   for (let i = 0; i < defList.length; i++) {
     const def = defList[i];
     if (i !== 0) {
-      returnString +=
+      const intervalMinutes = extractNumbers(
         formatDistanceStrict(dateCompare, def.time, {
-          unit: "hour",
-        }) + " ";
-      returnString +=
-        extractNumbers(
-          formatDistanceStrict(dateCompare, def.time, {
-            unit: "minute",
-          }),
-        )[0] % 60;
-      returnString += " minutes\n\n";
+          unit: "minute",
+        }),
+      )[0];
+      averageIntervals.push(intervalMinutes);
+      returnString += dateFormat(intervalMinutes) + "\n\n";
     }
 
     if (i !== defList.length - 1) {
@@ -95,14 +93,26 @@ async function intervalFunction(
     }
   }
 
+  let total = averageIntervals.reduce((a, b) => a + b);
+  const average = total / averageIntervals.length;
+  returnString += `<b>Average interval is ${dateFormat(
+    average,
+  )}</b>\n\n`;
+
   returnString += `<i>Your selected timezone is ${userTZ} /settimezone to change it</i>\n\n`;
   returnString += `<i>/intervals_5 or any number to get the amount of interval you need</i>`;
 
-  if(returnString.length > 4096){
-    return "Message too long, select a shorter interval length"
+  if (returnString.length > 4096) {
+    return "Message too long, select a shorter interval length";
   }
 
   return returnString;
+}
+
+function dateFormat(minutes: number): string {
+  return `${Math.trunc(minutes / 60)} hours ${Math.trunc(
+    minutes % 60,
+  )} minutes`;
 }
 
 export default interval;
