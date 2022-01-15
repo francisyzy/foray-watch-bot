@@ -25,7 +25,7 @@ const helper = () => {
   });
 
   bot.command("ping", (ctx) => {
-    return ctx.reply("pongg");
+    return ctx.reply("pong");
   });
 
   bot.command("stats", async (ctx) => {

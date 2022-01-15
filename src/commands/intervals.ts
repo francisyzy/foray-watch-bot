@@ -64,7 +64,7 @@ async function intervalFunction(
 
   let dateCompare = new Date();
 
-  //If < 0 means timezone is negative, else postive timezone
+  //If < 0 means timezone is negative, else positive timezone
   const userTZ = formatTimezone(defList[0].user.timeZone);
 
   let averageIntervals: number[] = [];
@@ -92,12 +92,29 @@ async function intervalFunction(
       dateCompare = def.time;
     }
   }
-
   let total = averageIntervals.reduce((a, b) => a + b);
   const average = total / averageIntervals.length;
   returnString += `<b>Average interval is ${dateFormat(
     average,
   )}</b>\n\n`;
+
+  if (number >= 3) {
+    const sorted = averageIntervals.sort(function (a, b) {
+      return a - b;
+    });
+    let median: number;
+    if (sorted.length % 2 === 0) {
+      median = sorted[Math.trunc(sorted.length / 2)];
+    } else {
+      median =
+        (sorted[sorted.length / 2 + 0.5] +
+          sorted[sorted.length / 2 - 0.5]) /
+        2;
+    }
+    returnString += `<b>Median interval is ${dateFormat(
+      median,
+    )}</b>\n\n`;
+  }
 
   returnString += `<i>Your selected timezone is ${userTZ} /settimezone to change it</i>\n\n`;
   returnString += `<i>/intervals_5 or any number to get the amount of interval you need</i>`;
