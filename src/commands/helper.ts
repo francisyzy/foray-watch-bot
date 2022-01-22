@@ -72,6 +72,9 @@ const helper = () => {
 <b>Trader came.</b>: ${user.traderHit}
 <b>Trader xp.</b>: ${user.traderXp}
 <b>Trader gold💰</b>: ${user.traderGold}
+<b>Trader gold💰 average</b>: ${(
+        user.traderGold / user.traderHit
+      ).toFixed(2)}
 <b>Trader rate.</b>: ${
         ((user.traderHit / user.forayDefHit) * 100).toFixed(2) + "%"
       }`,
