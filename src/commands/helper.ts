@@ -40,45 +40,69 @@ const helper = () => {
       },
     });
 
-    return ctx.replyWithHTML(
-      `<b>Name</b>: ${toEscapeHTMLMsg(user.name)}
-<b>🗡️ Foray went.</b>: ${user.forayAtkHit + user.forayAtkMiss}
-<b>🗡️ Foray success.</b>: ${user.forayAtkHit}
-<b>🗡️ Foray failure.</b>: ${user.forayAtkMiss}
+    let returnString = `<b>Name</b>: ${toEscapeHTMLMsg(user.name)}\n\n`;
+
+    //Add Foray atk stats
+    if (!(user.forayAtkHit === 0 && user.forayAtkMiss === 0)) {
+      returnString += `<b>🗡️ Foray went</b>: ${
+        user.forayAtkHit + user.forayAtkMiss
+      }
+<b>🗡️ Foray success</b>: ${user.forayAtkHit}
+<b>🗡️ Foray failure</b>: ${user.forayAtkMiss}
 <b>🗡️ Foray success %</b>: ${
-        (
+        getNumber(
           (user.forayAtkHit /
             (user.forayAtkHit + user.forayAtkMiss)) *
-          100
+            100,
         ).toFixed(2) + "%"
       }
 <b>🗡️ Foray exp.</b>: ${user.atkXp}
 <b>🗡️ Foray gold💰</b>: ${user.atkGold}
-<b>🗡️ Foray gold lost.</b>: ${user.atkGoldLost}
+<b>🗡️ Foray gold lost.</b>: ${user.atkGoldLost}\n\n`;
+    } else {
+      returnString +=
+        "<b>🗡️ Foray</b>: No Stats <i>forward some 🗡️ Results</i>\n\n";
+    }
 
-<b>🛡 Foray.</b>: ${user.forayDefHit + user.forayDefMiss}
+    //Add Foray def stats
+    if (!(user.forayDefHit === 0 && user.forayDefMiss === 0)) {
+      returnString += `<b>🛡 Foray</b>: ${
+        user.forayDefHit + user.forayDefMiss
+      }
 <b>🛡 Foray blocked🧹</b>: ${user.forayDefHit}
 <b>🛡 Foray missed🔥</b>: ${user.forayDefMiss}
 <b>🛡 Foray success %</b>: ${
-        (
+        getNumber(
           (user.forayDefHit /
             (user.forayDefHit + user.forayDefMiss)) *
-          100
+            100,
         ).toFixed(2) + "%"
       }
 <b>🛡 Foray gold💰</b>: ${user.defGold}
-<b>🛡 Foray xp.</b>: ${user.defXp}
+<b>🛡 Foray xp.</b>: ${user.defXp}\n\n`;
+    } else {
+      returnString +=
+        "<b>🛡 Foray</b>: No Stats <i>forward some 🧹 Intervene</i>\n\n";
+    }
 
-<b>Trader came.</b>: ${user.traderHit}
+    //Add Trader stats
+    if (user.traderHit !== 0) {
+      returnString += `<b>Trader came.</b>: ${user.traderHit}
 <b>Trader xp.</b>: ${user.traderXp}
 <b>Trader gold💰</b>: ${user.traderGold}
 <b>Trader gold💰 average</b>: ${(
         user.traderGold / user.traderHit
       ).toFixed(2)}
 <b>Trader rate.</b>: ${
-        ((user.traderHit / user.forayDefHit) * 100).toFixed(2) + "%"
-      }`,
-    );
+        getNumber((user.traderHit / user.forayDefHit) * 100).toFixed(
+          2,
+        ) + "%"
+      }\n\n`;
+    } else {
+      returnString += `<i>If you are a Sentinel, you may have a <a href="https://chatwars-wiki.de/index.php?title=Game_updates/2019-03-19">Trader</a> drop by upon 🧹 Intervene, forward trader result message to keep track of stats here!</i>\n\n`;
+    }
+
+    return ctx.replyWithHTML(returnString);
   });
 
   bot.help((ctx) =>
@@ -89,3 +113,7 @@ const helper = () => {
 };
 
 export default helper;
+
+function getNumber(num: number): number {
+  return isNaN(num) ? 0 : num;
+}
