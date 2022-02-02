@@ -16,9 +16,7 @@ const record = () => {
       //User sometimes just straight up did not create account first, so fail to find last information
       const user = await prisma.user.upsert({
         where: { telegramId: ctx.from.id },
-        update: {
-          name: ctx.from.first_name,
-        },
+        update: {},
         create: {
           telegramId: ctx.from.id,
           name: ctx.from.first_name,

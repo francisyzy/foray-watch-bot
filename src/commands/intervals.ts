@@ -13,12 +13,32 @@ const prisma = new PrismaClient();
 //interval commands
 const interval = () => {
   bot.command("intervals", async (ctx) => {
-    return ctx.replyWithHTML(await intervalFunction(ctx.from.id, 2));
+    const user = await prisma.user.upsert({
+      where: { telegramId: ctx.from.id },
+      update: {},
+      create: {
+        telegramId: ctx.from.id,
+        name: ctx.from.first_name,
+      },
+    });
+
+    return ctx.replyWithHTML(
+      await intervalFunction(user.telegramId, 2),
+    );
   });
   bot.hears(/\/intervals_(.+)/, async (ctx) => {
     const intervalsNumber = Number(ctx.match[1]);
+    const user = await prisma.user.upsert({
+      where: { telegramId: ctx.from.id },
+      update: {},
+      create: {
+        telegramId: ctx.from.id,
+        name: ctx.from.first_name,
+      },
+    });
+
     return ctx.replyWithHTML(
-      await intervalFunction(ctx.from.id, intervalsNumber),
+      await intervalFunction(user.telegramId, intervalsNumber),
     );
   });
 };
