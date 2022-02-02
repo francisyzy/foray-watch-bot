@@ -2,7 +2,7 @@ import bot from "../lib/bot";
 import { PrismaClient, Prisma } from "@prisma/client";
 import { Message } from "typegram";
 import { extractNumbers } from "../utils/extractNumbers";
-import { sameforay } from "../utils/dateCompare";
+import { sameForay } from "../utils/dateCompare";
 import { formatDistanceStrict } from "date-fns";
 
 const prisma = new PrismaClient();
@@ -13,30 +13,42 @@ const record = () => {
       const forwardText = (ctx.message as Message.TextMessage).text;
       const forayDate = new Date(ctx.message.forward_date! * 1000);
 
+      //User sometimes just straight up did not create account first, so fail to find last information
+      const user = await prisma.user.upsert({
+        where: { telegramId: ctx.from.id },
+        update: {
+          name: ctx.from.first_name,
+        },
+        create: {
+          telegramId: ctx.from.id,
+          name: ctx.from.first_name,
+        },
+      });
+
       if (
         forwardText.includes("You successfully defeated") ||
         forwardText.includes("Your body hurts, but for some") ||
         forwardText.includes("We hope you feel terrible.")
       ) {
-        const lastforay = await prisma.forayDef.findFirst({
+        const lastForay = await prisma.forayDef.findFirst({
           where: {
-            userTelegramId: ctx.from.id,
+            userTelegramId: user.telegramId,
           },
           orderBy: {
             time: "desc",
           },
         });
 
-        if (lastforay) {
-          if (!sameforay(lastforay.time, forayDate)) {
+        if (lastForay) {
+          if (!sameForay(lastForay.time, forayDate)) {
             const differenceHrs = formatDistanceStrict(
-              lastforay.time,
+              lastForay.time,
               forayDate,
               { unit: "hour" },
             );
             const differenceMins =
               extractNumbers(
-                formatDistanceStrict(lastforay.time, forayDate, {
+                formatDistanceStrict(lastForay.time, forayDate, {
                   unit: "minute",
                 }),
               )[0] % 60;
@@ -55,13 +67,13 @@ const record = () => {
                 miss: false,
                 gold: numbers[0],
                 xp: numbers[1],
-                userTelegramId: ctx.from.id,
+                userTelegramId: user.telegramId,
               },
             })
             .then(async () => {
               await prisma.user.update({
                 where: {
-                  telegramId: ctx.from.id,
+                  telegramId: user.telegramId,
                 },
                 data: {
                   forayDefHit: { increment: 1 },
@@ -89,13 +101,13 @@ const record = () => {
                 miss: false,
                 gold: 0,
                 xp: numbers[0],
-                userTelegramId: ctx.from.id,
+                userTelegramId: user.telegramId,
               },
             })
             .then(async () => {
               await prisma.user.update({
                 where: {
-                  telegramId: ctx.from.id,
+                  telegramId: user.telegramId,
                 },
                 data: {
                   forayDefHit: { increment: 1 },
@@ -121,13 +133,13 @@ const record = () => {
                 miss: true,
                 gold: 0,
                 xp: 0,
-                userTelegramId: ctx.from.id,
+                userTelegramId: user.telegramId,
               },
             })
             .then(async () => {
               await prisma.user.update({
                 where: {
-                  telegramId: ctx.from.id,
+                  telegramId: user.telegramId,
                 },
                 data: {
                   forayDefMiss: { increment: 1 },
@@ -157,13 +169,13 @@ const record = () => {
               miss: false,
               gold: numbers[0],
               xp: numbers[1],
-              userTelegramId: ctx.from.id,
+              userTelegramId: user.telegramId,
             },
           })
           .then(async () => {
             await prisma.user.update({
               where: {
-                telegramId: ctx.from.id,
+                telegramId: user.telegramId,
               },
               data: {
                 forayAtkHit: { increment: 1 },
@@ -195,13 +207,13 @@ const record = () => {
               miss: true,
               gold: numbers[0],
               xp: 0,
-              userTelegramId: ctx.from.id,
+              userTelegramId: user.telegramId,
             },
           })
           .then(async () => {
             await prisma.user.update({
               where: {
-                telegramId: ctx.from.id,
+                telegramId: user.telegramId,
               },
               data: {
                 forayAtkMiss: { increment: 1 },
@@ -232,13 +244,13 @@ const record = () => {
               miss: true,
               gold: 0,
               xp: numbers[0],
-              userTelegramId: ctx.from.id,
+              userTelegramId: user.telegramId,
             },
           })
           .then(async () => {
             await prisma.user.update({
               where: {
-                telegramId: ctx.from.id,
+                telegramId: user.telegramId,
               },
               data: {
                 forayAtkMiss: { increment: 1 },
@@ -268,13 +280,13 @@ const record = () => {
               time: forayDate,
               gold: numbers[1],
               xp: numbers[0],
-              userTelegramId: ctx.from.id,
+              userTelegramId: user.telegramId,
             },
           })
           .then(async () => {
             await prisma.user.update({
               where: {
-                telegramId: ctx.from.id,
+                telegramId: user.telegramId,
               },
               data: {
                 traderHit: { increment: 1 },
