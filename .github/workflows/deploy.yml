@@ -22,7 +22,7 @@ jobs:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       API_TOKEN: ${{ secrets.API_TOKEN }}
       ADMIN_TELEGRAM_ID: ${{ secrets.ADMIN_TELEGRAM_ID }}
-      PRISMA_CLIENT_ENGINE_TYPE: "dataproxy"
+      # PRISMA_CLIENT_ENGINE_TYPE: "dataproxy"
 
     # Steps
     steps:
