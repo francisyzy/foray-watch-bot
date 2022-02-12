@@ -58,15 +58,17 @@ const helper = () => {
             100,
         ).toFixed(2) + "%"
       }
-<b>🗡️ Foray xp. (average)</b>: ${user.atkXp} (${(
-        user.atkXp / user.forayAtkHit
+<b>🗡️ Foray xp. (average)</b>: ${user.atkXp} (${getNumber(
+        user.atkXp / user.forayAtkHit,
       ).toFixed(2)})
-<b>🗡️ Foray gold💰 (average)</b>: ${user.atkGold} (${(
-        user.atkGold / user.forayAtkHit
+<b>🗡️ Foray gold💰 (average)</b>: ${user.atkGold} (${getNumber(
+        user.atkGold / user.forayAtkHit,
       ).toFixed(2)})
-<b>🗡️ Foray gold lost. (average)</b>: ${user.atkGoldLost} (${(
-        user.atkGoldLost / user.forayAtkMiss
-      ).toFixed(2)})\n\n`;
+<b>🗡️ Foray gold lost. (average)</b>: ${
+        user.atkGoldLost
+      } (${getNumber(user.atkGoldLost / user.forayAtkMiss).toFixed(
+        2,
+      )})\n\n`;
     } else {
       returnString +=
         "<b>🗡️ Foray</b>: No Stats <i>forward some 🗡️ Results</i>\n\n";
@@ -86,11 +88,11 @@ const helper = () => {
             100,
         ).toFixed(2) + "%"
       }
-<b>🛡 Foray gold💰 (average)</b>: ${user.defGold} (${(
-        user.defGold / user.forayDefHit
+<b>🛡 Foray gold💰 (average)</b>: ${user.defGold} (${getNumber(
+        user.defGold / user.forayDefHit,
       ).toFixed(2)})
-<b>🛡 Foray xp. (average)</b>: ${user.defXp} (${(
-        user.defXp / user.forayDefHit
+<b>🛡 Foray xp. (average)</b>: ${user.defXp} (${getNumber(
+        user.defXp / user.forayDefHit,
       ).toFixed(2)})\n\n`;
     } else {
       returnString +=
@@ -100,11 +102,11 @@ const helper = () => {
     //Add Trader stats
     if (user.traderHit !== 0) {
       returnString += `<b>Trader came.</b>: ${user.traderHit}
-<b>Trader xp. (average)</b>: ${user.traderXp} (${(
-        user.traderXp / user.traderHit
+<b>Trader xp. (average)</b>: ${user.traderXp} (${getNumber(
+        user.traderXp / user.traderHit,
       ).toFixed(2)})
-<b>Trader gold💰 (average)</b>: ${user.traderGold} (${(
-        user.traderGold / user.traderHit
+<b>Trader gold💰 (average)</b>: ${user.traderGold} (${getNumber(
+        user.traderGold / user.traderHit,
       ).toFixed(2)})
 <b>Trader rate.</b>: ${
         getNumber((user.traderHit / user.forayDefHit) * 100).toFixed(
