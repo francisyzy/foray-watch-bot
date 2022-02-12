@@ -12,6 +12,7 @@ import record from "./commands/record";
 import interval from "./commands/intervals";
 import admin from "./commands/admin";
 import timezone from "./commands/timezone";
+import { printBotInfo } from "./utils/consolePrintUsername";
 
 const index = () => {
   //Production Settings
@@ -45,6 +46,7 @@ const index = () => {
     //Development logging
     bot.use(Telegraf.log());
     bot.launch();
+    printBotInfo(bot);
   }
 
   helper();
