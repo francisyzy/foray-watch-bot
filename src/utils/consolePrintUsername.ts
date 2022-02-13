@@ -1,6 +1,5 @@
 import { Telegraf, Scenes } from "telegraf";
 import qrcode from "qrcode-terminal";
-const format = require("string-kit").format;
 
 /**
  * Console logs the bot username and gives a link to the bot
@@ -12,9 +11,7 @@ export async function printBotInfo(
 ): Promise<void> {
   const botMe = await bot.telegram.getMe();
   console.log(
-    format(
-      `Bot ^_${botMe.first_name}^ is running with username ^_@${botMe.username}^ \nhttps://t.me/${botMe.username}`,
-    ),
+      `Bot \x1b[4m${botMe.first_name}\x1b[24m is running with username \x1b[4m@${botMe.username}\x1b[24m \nhttps://t.me/${botMe.username}`,
   );
   qrcode.generate(`https://t.me/${botMe.username}`, { small: true });
 }
