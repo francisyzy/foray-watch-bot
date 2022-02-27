@@ -62,6 +62,9 @@ async function intervalFunction(
   if (defList.length === 0) {
     return "No intervals available. Forward some 🛡 Foray first";
   }
+  if (defList.length === 1) {
+    return "Not enough intervals available. Forward more 🛡 Foray first";
+  }
 
   let returnString = "";
   if (defList[0]) {
