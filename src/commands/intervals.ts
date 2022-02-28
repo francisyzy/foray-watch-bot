@@ -7,7 +7,7 @@ import {
 } from "date-fns";
 import { extractNumbers } from "../utils/extractNumbers";
 import { utcToZonedTime } from "date-fns-tz";
-import { formatTimezone } from "../utils/messageHandler";
+import { dateFormat, formatTimezone } from "../utils/messageHandler";
 
 const prisma = new PrismaClient();
 //interval commands
@@ -70,17 +70,13 @@ async function intervalFunction(
   if (defList[0]) {
     returnString += "Time passed since last foray:\n";
     returnString +=
-      formatDistanceToNowStrict(defList[0].time, {
-        unit: "hour",
-      }) + " ";
-    returnString +=
-      (extractNumbers(
-        formatDistanceToNowStrict(defList[0].time, {
-          unit: "minute",
-        }),
-      )[0] %
-        60) +
-      " minutes\n\n";
+      dateFormat(
+        extractNumbers(
+          formatDistanceToNowStrict(defList[0].time, {
+            unit: "minute",
+          }),
+        )[0],
+      ) + "\n\n";
   }
 
   returnString += "Recent Intervals:\n";
@@ -147,12 +143,6 @@ async function intervalFunction(
   }
 
   return returnString;
-}
-
-function dateFormat(minutes: number): string {
-  return `${Math.trunc(minutes / 60)} hours ${Math.trunc(
-    minutes % 60,
-  )} minutes`;
 }
 
 export default interval;

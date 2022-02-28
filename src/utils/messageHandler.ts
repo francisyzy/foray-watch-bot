@@ -46,3 +46,14 @@ export function formatTimezone(tz: number): string {
   const tzString = tz < 0 ? (tz * -1).toString() : tz.toString();
   return `${tz < 0 ? "-" : "+"}${tzString.padStart(2, "0")}:00`;
 }
+
+/**
+ * Formats minutes to hours and minutes
+ * @param {number} minutes - number of minutes
+ * @return {string} Formatted string of hours and minutes
+ */
+export function dateFormat(minutes: number): string {
+  return `${Math.trunc(minutes / 60)} hours ${Math.trunc(
+    minutes % 60,
+  )} minutes`;
+}

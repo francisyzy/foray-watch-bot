@@ -4,6 +4,7 @@ import { Message } from "typegram";
 import { extractNumbers } from "../utils/extractNumbers";
 import { sameForay } from "../utils/dateCompare";
 import { formatDistanceStrict } from "date-fns";
+import { dateFormat } from "../utils/messageHandler";
 
 const prisma = new PrismaClient();
 //record forwarded messages commands
@@ -39,19 +40,14 @@ const record = () => {
 
         if (lastForay) {
           if (!sameForay(lastForay.time, forayDate)) {
-            const differenceHrs = formatDistanceStrict(
-              lastForay.time,
-              forayDate,
-              { unit: "hour" },
-            );
-            const differenceMins =
-              extractNumbers(
-                formatDistanceStrict(lastForay.time, forayDate, {
-                  unit: "minute",
-                }),
-              )[0] % 60;
             ctx.reply(
-              `Difference from last 🛡 foray ${differenceHrs} ${differenceMins} minutes`,
+              `Difference from last 🛡 foray ${dateFormat(
+                extractNumbers(
+                  formatDistanceStrict(lastForay.time, forayDate, {
+                    unit: "minute",
+                  }),
+                )[0],
+              )}`,
             );
           }
         }
