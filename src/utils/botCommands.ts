@@ -10,6 +10,11 @@ export function getBotCommands(): BotCommand[] {
       description: "Check 🛡 foray intervals",
     },
     {
+      command: "timers",
+      description:
+        "Set up ⏰ timers to be reminded when interval is near",
+    },
+    {
       command: "stats",
       description: "Get foray stats",
     },
