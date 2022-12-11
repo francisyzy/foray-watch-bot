@@ -37,9 +37,6 @@ jobs:
       - name: npm prune
         run: npm prune --production
 
-      - name: prune prisma
-        run: npm run removePrismaExtras
-
       - name: Serverless
         uses: serverless/github-action@master
         with:
