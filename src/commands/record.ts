@@ -25,6 +25,7 @@ const record = () => {
       });
 
       if (
+        forwardText.includes("oн безнаказанно ограбил") ||
         forwardText.includes("You successfully defeated") ||
         forwardText.includes("Your body hurts, but for some") ||
         forwardText.includes("We hope you feel terrible.")
