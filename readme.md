@@ -1,5 +1,7 @@
 # Foray watch Bot
 
+Chat Wars RPG Telegram Bot ([@chtwrsbot](https://t.me/chtwrsbot?start=5643e700a64041fb9adb7ac9e6226039)) has a Foray feature that players can defend their village from.
+
 This telegram bot records foray stats and timings so that you will have an estimation of what time the next foray will come.
 
 <div align="center">
