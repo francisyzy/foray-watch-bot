@@ -231,7 +231,10 @@ const record = () => {
           "You have satisfied your lust for violence and left back home",
         )
       ) {
-        const numbers = extractNumbers(forwardText.split("\n")[1]);
+        const lines = forwardText.split("\n");
+        const numbers = extractNumbers(
+          lines[lines.findIndex((line) => line.includes("Received"))],
+        );
         await prisma.forayAtk
           .create({
             data: {

@@ -3,7 +3,11 @@ export function extractNumbers(text: string): number[] {
 
   numbers = text.match(/(-\d+|\d+)(,\d+)*(\.\d+)*/g);
 
-  numbers = numbers!.map((n) => Number(n.replace(/,/g, "")));
+  if (numbers) {
+    numbers = numbers.map((n) => Number(n.replace(/,/g, "")));
+  } else {
+    throw new Error("No Numbers!");
+  }
 
   return numbers;
 }
