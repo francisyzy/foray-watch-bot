@@ -1,6 +1,7 @@
 import bot from "../lib/bot";
 import { PrismaClient } from "@prisma/client";
 import {
+  add,
   formatDistanceStrict,
   formatDistanceToNowStrict,
   formatISO9075,
@@ -95,16 +96,16 @@ async function intervalFunction(
   }
 
   let returnString = "";
+
+  let timePassed: number = 0;
   if (defList[0]) {
     returnString += "Time passed since last foray:\n";
-    returnString +=
-      dateFormat(
-        extractNumbers(
-          formatDistanceToNowStrict(defList[0].time, {
-            unit: "minute",
-          }),
-        )[0],
-      ) + "\n\n";
+    timePassed = extractNumbers(
+      formatDistanceToNowStrict(defList[0].time, {
+        unit: "minute",
+      }),
+    )[0];
+    returnString += dateFormat(timePassed) + "\n\n";
   }
 
   returnString += "Recent Intervals:\n";
@@ -145,11 +146,11 @@ async function intervalFunction(
     average,
   )}</b>\n\n`;
 
+  let median: number = 0;
   if (number >= 3) {
     const sorted = averageIntervals.sort(function (a, b) {
       return a - b;
     });
-    let median: number;
     if (sorted.length % 2 === 0) {
       median = sorted[Math.trunc(sorted.length / 2)];
     } else {
@@ -161,6 +162,25 @@ async function intervalFunction(
     returnString += `<b>Median interval is ${dateFormat(
       median,
     )}</b>\n\n`;
+  }
+
+  if (average !== 0) {
+    returnString += `<u>Next average foray is at ${formatISO9075(
+      utcToZonedTime(
+        add(new Date(), {
+          minutes: Math.trunc(average - timePassed),
+        }),
+        userTZ,
+      ),
+    )}</u>\n\n`;
+  }
+  if (median !== 0) {
+    returnString += `<u>Next median foray is at ${formatISO9075(
+      utcToZonedTime(
+        add(new Date(), { minutes: Math.trunc(median - timePassed) }),
+        userTZ,
+      ),
+    )}</u>\n\n`;
   }
 
   returnString += `<i>Your selected timezone is ${userTZ} /settimezone to change it</i>\n\n`;
